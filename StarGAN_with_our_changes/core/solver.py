@@ -63,7 +63,8 @@ class Solver(nn.Module):
     def sample(self, loaders, src_dir, classes):
         import numpy as np
         args = self.args
-        classes = np.array(classes)
+        classes = [eval(i) for i in classes]
+        classes = torch.tensor(classes)
         nets_ema = self.nets_ema
         os.makedirs(args.result_dir, exist_ok=True)
         self._load_checkpoint(args.resume_iter)

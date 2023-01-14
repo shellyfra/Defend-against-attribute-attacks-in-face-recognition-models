@@ -29,6 +29,7 @@ class Solver(nn.Module):
         super().__init__()
         self.args = args
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.idx = 0
 
         self.nets, self.nets_ema = build_model(args)
         # below setattrs are to make networks be children of Solver, e.g., for self.to(self.device)
@@ -66,10 +67,11 @@ class Solver(nn.Module):
         nets_ema = self.nets_ema
         os.makedirs(args.result_dir, exist_ok=True)
         self._load_checkpoint(args.resume_iter)
-
+        print(f'Start_sampling sample: {self.idx}')
+        self.idx += 1
         src = next(InputFetcher(loaders.src, None, args.latent_dim, 'test'))
         ref = next(InputFetcher(loaders.ref, None, args.latent_dim, 'test'))
         fname = ospj(src_dir)
-        class_names = src.y.numpy()
+        class_names = src.y
         # print('Working on {}...'.format(fname))
         utils.translate_using_reference(nets_ema, args, src.x, classes[class_names], ref.x, ref.y, fname)

@@ -24,4 +24,4 @@ def translate_using_reference(nets, args, x_src, y_src, x_ref, y_ref, filename):
             masks = nets.fan.get_heatmap(x_s) if args.w_hpf > 0 else None
             s_ref = nets.style_encoder(x_r, y_r)
             x_fake = nets.generator(x_s, s_ref, masks=masks)
-            save_image(x_fake, N + 1, f'{filename}/{y_s}/new_image_{y_s}.jpg')
+            save_image(x_fake, f'{filename}/{y_s}/new_image_{y_s}_{i}_{j}.jpg')

@@ -99,6 +99,33 @@ def train(model, criterion, optimizer, num_epochs, train_dataloader, train_datas
     print('==> Finished Training ...')
     return train_losses, test_losses, train_acc, test_acc
 
+def eval_acc(model, test_dataloader, device, criterion=nn.CrossEntropyLoss()):
+  model.eval()
+  model.classify = True
+
+  with torch.no_grad():
+      running_loss = 0.
+      running_corrects = 0
+
+      for inputs, labels in test_dataloader:
+          inputs = inputs.to(device)
+          labels = labels.to(device)
+
+          outputs = model(inputs)
+          loss = criterion(outputs, labels)
+
+          _, preds = torch.max(outputs, 1)
+          running_loss += loss.item() * inputs.size(0)
+          running_corrects += torch.sum(preds == labels.data)/16
+          # print(running_corrects)
+          # break
+
+      loss = running_loss / len(test_dataloader)
+
+      acc = (running_corrects / len(test_dataloader)) * 100.
+
+  print('Loss: {:.4f} Acc: {:.4f}% '.format(loss, acc))
+  return loss, acc
 
 def imshow_no_normalization(input, title):
     # torch.Tensor => numpy
@@ -110,6 +137,11 @@ def imshow_no_normalization(input, title):
 
 
 def set_parameter_requires_grad(model, num_classes, feature_extracting=False):
+"""
+#(last_linear): Linear(in_features=1792, out_features=512, bias=False)
+#(last_bn): BatchNorm1d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+# (logits): Linear(in_features=512, out_features=8631, bias=True)
+"""
     if feature_extracting:
         # frozen model
         model.requires_grad_(False)
@@ -133,3 +165,25 @@ def get_params_to_update(model):
             params_to_update.append(param)
             print("\t", name)
     return params_to_update
+
+
+def imshow(input, title):
+    # torch.Tensor => numpy
+    input = input.numpy().transpose((1, 2, 0))
+    # undo image normalization
+    mean = np.array([0.485, 0.456, 0.406])
+    std = np.array([0.229, 0.224, 0.225])
+    input = std * input + mean
+    input = np.clip(input, 0, 1)
+    # display images
+    plt.imshow(input)
+    plt.title(title)
+    plt.show()
+
+def imshow_no_normalization(input, title):
+    # torch.Tensor => numpy
+    input = input.numpy().transpose((1, 2, 0))
+    # display images
+    plt.imshow(input)
+    plt.title(title)
+    plt.show()

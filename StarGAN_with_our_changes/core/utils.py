@@ -8,9 +8,9 @@ def denormalize(x):
     return out.clamp_(0, 1)
 
 
-def save_image(x, ncol, filename):
+def save_image(x, filename):
     x = denormalize(x)
-    vutils.save_image(x.cpu(), filename, nrow=ncol, padding=0)
+    vutils.save_image(x.cpu(), filename, padding=0)
 
 
 @torch.no_grad()

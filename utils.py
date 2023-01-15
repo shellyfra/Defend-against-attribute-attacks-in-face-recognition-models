@@ -166,50 +166,6 @@ def get_params_to_update(model):
             print("\t", name)
     return params_to_update
 
-transforms_train = transforms.Compose([
-    transforms.Resize((256, 256)),
-    transforms.RandomHorizontalFlip(), # data augmentation
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) # normalization
-])
-
-transforms_test = transforms.Compose([
-    transforms.Resize((256, 256)),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-])
-
-class AddGaussianNoise(object):
-    def __init__(self, mean=0., std=1.):
-        self.std = std
-        self.mean = mean
-        
-    def __call__(self, tensor):
-        return torch.clip(tensor + torch.randn(tensor.size()) * self.std + self.mean, 0, 1)
-    
-    def __repr__(self):
-        return self.__class__.__name__ + '(mean={0}, std={1})'.format(self.mean, self.std)
-
-transforms_attack2 = transforms.Compose([
-    transforms.Resize((256, 256)),
-    transforms.ToTensor(),
-    # Normalization is done in dataloader
-    transforms.GaussianBlur(kernel_size=(5, 9), sigma=(0.1, 5)),
-    AddGaussianNoise(0., 0.1)
-    ])
-
-transforms_attack3 = transforms.Compose([
-    transforms.Resize((256, 256)),
-    transforms.ToTensor(),
-    # Normalization is done in dataloader
-    transforms.ColorJitter(brightness=.1, hue=.1),
-    AddGaussianNoise(0., 0.1)
-    ])
-
-transforms_orig = transforms.Compose([
-    transforms.Resize((256, 256)),
-    transforms.ToTensor(),
-    ])
 
 def imshow(input, title):
     # torch.Tensor => numpy

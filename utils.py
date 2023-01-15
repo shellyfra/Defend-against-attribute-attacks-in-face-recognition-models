@@ -137,11 +137,9 @@ def imshow_no_normalization(input, title):
 
 
 def set_parameter_requires_grad(model, num_classes, feature_extracting=False):
-"""
 #(last_linear): Linear(in_features=1792, out_features=512, bias=False)
 #(last_bn): BatchNorm1d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
 # (logits): Linear(in_features=512, out_features=8631, bias=True)
-"""
     if feature_extracting:
         # frozen model
         model.requires_grad_(False)

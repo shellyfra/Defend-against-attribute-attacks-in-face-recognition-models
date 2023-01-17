@@ -1,44 +1,28 @@
-# Defend-against-attribute-attacks-in-face-recognition-models
-show how an attribute attack can affect the network accuracy and propose an improvement to a commonly used face recognition model.
-
-
-<h1 align="center">Adaptive STFT: Classify Music Genres with a learnable spectrogram layer</h1>
+<h1 align="center">Defend against attribute and augmentation attacks in face recognition models</h1>
 <h2 align="center">
   <br>
  Our final project for the Technion's EE Deep Learning course (046211)
   <br>
-  <img src="https://raw.githubusercontent.com/taldatech/ee046211-deep-learning/main/assets/nn_gumgum.gif" height="200">
+  <img src="https://media.tenor.com/B8ra2i-OK9QAAAAC/face-recognition.gif" height="200">
 </h1>
   <p align="center">
-    Noam Elata: <a href="https://www.linkedin.com/in/noamelata/">LinkdIn</a> , <a href="https://github.com/noamelata">GitHub</a>
+    Gil Kaple: <a href="https://www.linkedin.com/in/gil-kapel-a960b720a/">LinkdIn</a> , <a href="https://github.com/gil-kapel">GitHub</a>
   <br>
-    Rotem Idelson: <a href="https://www.linkedin.com/in/rotem-idelson/">LinkdIn</a> , <a href="https://github.com/RotemId">GitHub</a>
+    Shelly Francis: <a href="https://www.linkedin.com/in/shelly-francis-85bb2b217/">LinkdIn</a> , <a href="https://github.com/shellyfra">GitHub</a>
   </p>
 
 ## Agenda
-- [Ada-STFT](#Ada-STFT) - about our project
+- [Face Recognition Attacks](#Face-Recognition-Attacks) - about our project
 - [Training and Results](#training-and-results) - our network's training visualizations and results
 - [Hyper-parameters](#hyper-parameters) - what are our training's hyperparameters
 - [Run our model](#run-our-model) - how to run training jobs and inference with our model and how to load checkpoints
 - [Ada-STFT Module](#ada-stft-module) - how to use our STFT module
-- [Prerequisites](#Prerequisites) - Prerequisites of the environment
 
-# Ada-STFT
-Expanding on existing application of image processing networks to audio using STFT, we propose an adaptive STFT layer that learns the best DFT kernel coefficients and window coefficients for the application. 
-
-The task of audio-processing using neural networks has proven to be a difficult task, even for the state of the art 1-Dimension processing network.
-The use of STFT to transform an audio-processing challenge into an image-processing challenge enables the use of better and stronger image-processing networks, such as Resnet.
-An example of such uses can be found in this <a href="https://arxiv.org/abs/1706.07156">paper</a>.
-Because STFT is in essence a feature extractor, base on applying 1-Dimension convolutions, we propose a method to simplify the translation of 1-D sequences into 2-D images.
-We will also improve the vanilla STFT by learning task-specific STFT window coefficients and DFT kernal coefficients, using pytorch's build in capabilities.
-
-In this project, we implemented a toy example of an audio-processing problem - music genre classification - to show the advantages of Ada-STFT.
-We have tried to classify the genre of an audio part from the <a href="https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification/code">GTZAN dataset </a>.
-The music classification task is based on a project done in the technion in 2021, and can be found <a href=https://github.com/omercohen7640/MusicGenreClassifier>here</a>.
+# Face-Recognition-Attacks
+show how an attribute attack can affect the network accuracy and propose an improvement to a commonly used face recognition model.
 
 <img src="images/model.png" height="200">
 
-A complete and detailed report of the project can be found <a href=https://github.com/Rotem-and-Noam/Ada-STFT/blob/main/Ada_STFT.pdf>here</a>
 
 # Training and Results
 

@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from tqdm import tqdm
 import torch.nn as nn
 import torchvision
-
+import numpy as np
 
 def train(model, criterion, optimizer, num_epochs, train_dataloader, train_dataset, test_dataloader, test_dataset, path,
           with_aug=False, free_text='', device=None):
@@ -127,21 +127,11 @@ def eval_acc(model, test_dataloader, device, criterion=nn.CrossEntropyLoss()):
   print('Loss: {:.4f} Acc: {:.4f}% '.format(loss, acc))
   return loss, acc
 
-def imshow_no_normalization(input, title):
-    # torch.Tensor => numpy
-    input = input.numpy().transpose((1, 2, 0))
-    # display images
-    plt.imshow(input)
-    plt.title(title)
-    plt.show()
-
 
 def set_parameter_requires_grad(model, num_classes, feature_extracting=False):
-"""
 #(last_linear): Linear(in_features=1792, out_features=512, bias=False)
 #(last_bn): BatchNorm1d(512, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
 # (logits): Linear(in_features=512, out_features=8631, bias=True)
-"""
     if feature_extracting:
         # frozen model
         model.requires_grad_(False)

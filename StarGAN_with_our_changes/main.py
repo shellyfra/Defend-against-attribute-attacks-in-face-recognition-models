@@ -156,5 +156,8 @@ if __name__ == '__main__':
     parser.add_argument('--save_every', type=int, default=10000)
     parser.add_argument('--eval_every', type=int, default=50000)
 
+    # skip samples
+    parser.add_argument('--skip_rate', type=int, default=4)
+
     args = parser.parse_args()
     main(args)

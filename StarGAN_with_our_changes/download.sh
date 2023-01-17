@@ -1,12 +1,11 @@
-"""
-StarGAN v2
-Copyright (c) 2020-present NAVER Corp.
+# """
+# Defend against attribute and augmentation attacks in face recognition models
+# deep learning project
+# authors:
+# Gil Kepel
+# Shelly Francis.
 
-This work is licensed under the Creative Commons Attribution-NonCommercial
-4.0 International License. To view a copy of this license, visit
-http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to
-Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-"""
+# """
 
 FILE=$1
 
@@ -21,7 +20,7 @@ elif  [ $FILE == "pretrained-network-afhq" ]; then
     mkdir -p ./expr/checkpoints/afhq
     OUT_FILE=./expr/checkpoints/afhq/100000_nets_ema.ckpt
     wget -N $URL -O $OUT_FILE
-    
+
 elif  [ $FILE == "wing" ]; then
     URL=https://www.dropbox.com/s/tjxpypwpt38926e/wing.ckpt?dl=0
     mkdir -p ./expr/checkpoints/
@@ -32,11 +31,11 @@ elif  [ $FILE == "wing" ]; then
     wget -N $URL -O $OUT_FILE
 
 elif  [ $FILE == "celeba-hq-dataset" ]; then
-    URL=https://www.dropbox.com/s/f7pvjij2xlpff59/celeba_hq.zip?dl=0
-    ZIP_FILE=./data/celeba_hq.zip
-    mkdir -p ./data
-    wget -N $URL -O $ZIP_FILE
-    unzip $ZIP_FILE -d ./data
+    URL=https://postechackr-my.sharepoint.com/:u:/g/personal/dongbinna_postech_ac_kr/ES-jbCNC6mNHhCyR4Nl1QpYBlxVOJ5YiVerhDpzmoS9ezA?download=1
+    ZIP_FILE=CelebA_HQ_facial_identity_dataset.zip
+    mkdir -p ./CelebA_HQ_facial_identity_dataset
+    wget $URL -O $ZIP_FILE
+    unzip $ZIP_FILE -d ./CelebA_HQ_facial_identity_dataset
     rm $ZIP_FILE
 
 elif  [ $FILE == "afhq-dataset" ]; then
@@ -54,6 +53,19 @@ elif  [ $FILE == "afhq-v2-dataset" ]; then
     mkdir -p ./data
     wget -N $URL -O $ZIP_FILE
     unzip $ZIP_FILE -d ./data
+    rm $ZIP_FILE
+
+elif  [ $FILE == "stargan-pre-trained" ]; then
+    URL=https://www.dropbox.com/s/96fmei6c93o8b8t/100000_nets_ema.ckpt?dl=0
+    ZIP_FILE=./expr/checkpoints/celeba_hq/100000_nets_ema.ckpt
+    mkdir -p ./expr/checkpoints/celeba_hq
+    wget -N $URL -O $ZIP_FILE
+
+elif  [ $FILE == "models-weights" ]; then
+    ZIP_FILE=./models/models.zip
+    mkdir -p ./models
+    wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1G5QNRswQjVNJ3gDTf0W8-vsiuFuVqDY_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1G5QNRswQjVNJ3gDTf0W8-vsiuFuVqDY_" -O $ZIP_FILE
+    unzip $ZIP_FILE -d ./models/
     rm $ZIP_FILE
 
 else

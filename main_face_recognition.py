@@ -64,4 +64,6 @@ if __name__ == '__main__':
     img_probs = face_net(input.to(device))
     out0 = torchvision.utils.make_grid(input)
     pred_class = [class_names[prob.argmax().item()] for prob in img_probs]
-    imshow_no_normalization(out0, title=f'predicted class = {pred_class}')
+    # imshow_no_normalization(out0, title=f'predicted class = {pred_class}')
+    print(pred_class)
+    

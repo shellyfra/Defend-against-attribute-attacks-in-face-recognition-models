@@ -11,6 +11,7 @@ import glob
 from datetime import datetime
 import argparse
 from PIL import Image
+from matplotlib import pyplot as plt
 
 
 def model_pre_proccess(state_path, num_classes, device):
@@ -65,4 +66,4 @@ if __name__ == '__main__':
     out0 = torchvision.utils.make_grid(input)
     pred_class = [class_names[prob.argmax().item()] for prob in img_probs]
     imshow_no_normalization(out0, title=f'predicted class = {pred_class}')
-    print(pred_class)
+    plt.show()

@@ -114,7 +114,7 @@ And for choosing the right hyper-parameters to fit the model to defend as well a
     pip install pillow==7.0.0 scipy==1.2.1 tqdm==4.43.0 munch==2.5.0
     pip install facenet-pytorch
 
-## Run a test of your on:
+## Run a test of your own:
 After downloading the pre-trained networks, you can synthesize an attack. 
 
 #### 1. 

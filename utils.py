@@ -175,8 +175,9 @@ def imshow_no_normalization(input, title):
     print('got here0?')
     input = input.numpy().transpose((1, 2, 0))
     # display images
-    print('got here1?')
-    plt.imshow(input)
+    a = np.array(input)
+    print(input)
+    plt.imshow(a)
     plt.title(title)
     print('got here2?')
 

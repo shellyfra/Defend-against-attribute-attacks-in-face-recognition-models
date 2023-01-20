@@ -128,7 +128,7 @@ NOTICE THAT OUR PRE-TRAINED MODEL WORKS GOOD WITH BLOND ATTRIBUTE TRANSFORMATION
 #### 3.
 The following commands will save generated the attacked images
 
-    !python main.py --mode sample --num_domains 2 --resume_iter 100000 --w_hpf 1 \
+    !python main.py --mode sample --num_domains 2 --resume_iter 100000 --w_hpf 1 --skip_rate 1 \
                --checkpoint_dir expr/checkpoints/celeba_hq \
                --result_dir attack_objects\
                --src_dir attack_objects \

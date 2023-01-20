@@ -38,8 +38,7 @@ We trained our model to fit a subset of CelebA-HQ dataset, that uses 300 identit
 If you want to add your on images, it's possible by fine-tune (train for short time)
 Our model.
 
-![](images\face_net_omg.png)
-
+![](images/face_net_omg.png)
 
 ### Star-Gan-v2
 
@@ -50,7 +49,7 @@ The way to use this model is to give it reference and source images (In director
 and then the GAN would generate the source img with some of the reference image attributes
 (hair-style, sun-glasses, beard, face accessories etc.)
 
-![](images\StarGan-v2.png)
+![](images/StarGan-v2.png)
 
 ### Dataset
 Our dataset is celebA-HQ subset : <a href="https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html">CelebA dataset </a>,
@@ -81,15 +80,19 @@ And for choosing the right hyper-parameters to fit the model to defend as well a
 
 #### faceNet predictions BEFORE training - augmentation attack:
 
-![](images\before_aug_train_2.png)
+![](images/before_aug_train_2.png)
+
 #### faceNet predictions AFTER training:
-![](images\after_aug_train_2.png)
+
+![](images/after_aug_train_2.png)
 
 #### faceNet predictions BEFORE training - attribute attack:
-![](images\att_attack_id_before_train.png)
-#### faceNet predictions AFTER training:
-![](images\att_attack_id_after_train.png)
 
+![](images/att_attack_id_before_train.png)
+
+#### faceNet predictions AFTER training:
+
+![](images/att_attack_id_after_train.png)
 
 # Run our model
 #### 1. Clone our git repository

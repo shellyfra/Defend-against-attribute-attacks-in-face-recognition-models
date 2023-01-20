@@ -1,12 +1,14 @@
-<h1 align="center">Defend against attribute and augmentation attacks in face recognition models</h1>
+<h1 align="center">Defend against adversarial attacks in face recognition models</h1>
 <h2 align="center">
   <br>
- Our final project for the Technion's EE Deep Learning course (046211)
+Final project <br>
+Technion's EE <br>
+Deep Learning course (046211)
   <br>
   <img src="https://media.tenor.com/B8ra2i-OK9QAAAAC/face-recognition.gif" height="200">
 </h1>
   <p align="center">
-    Gil Kaple: <a href="https://www.linkedin.com/in/gil-kapel-a960b720a/">LinkdIn</a> , <a href="https://github.com/gil-kapel">GitHub</a>
+    Gil Kapel: <a href="https://www.linkedin.com/in/gil-kapel-a960b720a/">LinkdIn</a> , <a href="https://github.com/gil-kapel">GitHub</a>
   <br>
     Shelly Francis: <a href="https://www.linkedin.com/in/shelly-francis-85bb2b217/">LinkdIn</a> , <a href="https://github.com/shellyfra">GitHub</a>
   </p>
@@ -18,45 +20,21 @@
 - [Run our model](#run-our-model) - how to run training jobs and inference with our model and how to load checkpoints
 
 # Face-Recognition-Attacks
-show how an attribute attack can affect the network accuracy and propose an improvement to a commonly used face recognition model.
+- Face recognition is a domain with many uses in real-world applications – ranging from photo tagging to automated border control (ABC).
+- Today’s models have high accuracy
+- These models could be vulnerable to adversarial attacks
+- An attacker can intentionally design features that would confuse the network and even impersonate to someone else.
+- We tested some countermeasures against these attacks
 
-<img src="images/model.png" height="200">
+![](images/att_attack_id_108.png)
+
 
 
 # Training and Results
 
-We used Optuna to pick our hyperparameters for basic run with no learnable STFT's coefficiens. Those parameters are saved in the `codes\options.json` file.
-You can use our code `codes\train_optuna.py` and change it if you would like to preform your own Optuna study.
-
-With those parameters, we conducted the folowing trials:
-
-* basic run, with no STFT learning
-* learning the STFT's window coefficients
-* learning the STFT's DFT's kernel coefficients
-* learning both the DFT's kernel coefficients and window coefficients
-* learning 3 different STFT's: window coefficients only
-* learning 3 different STFT's: DFT's kernel coefficients
-* learning 3 different STFT's: both DFT's kernel coefficients and window coefficients
+We used Optuna to pick our hyperparameters for .
 
 Here are our results:
-
-<img src="images/train_loss.png"  height="250">
-<p style="text-align: center;">Train loss progress</p>
-
-<img src="images/val_accuracy_graph.png"  height="200">
-<p style="text-align: center;">Validation accuracy progress</p>
-
-<img src="images/val_accuracy_matrix.png"  height="300">
-<p style="text-align: center;">Validation confusion matrices</p>
-
-
-As we can see, out of the following 3 combinations:
-1. learning the STFT window coefficients
-2. learning the STFT DFT kernel coefficients
-3. learning both the DFT kernel coefficients and window coefficients
-It appears that learning both the DFT kernel coefficients and window coefficients together has the best performance.
-Surprisingly, it seems that learning 3 different STFT modules (one for each of Resnet's input channels) does not improve the performance over learning 1 STFT module;
-It performs slightly better or slightly worse, depending on the trial configuration and chance.
 
 # Run our model
 

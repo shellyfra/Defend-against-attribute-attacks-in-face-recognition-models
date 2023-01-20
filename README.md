@@ -12,11 +12,10 @@
   </p>
 
 ## Agenda
-- [Face Recognition Attacks](#Face-Recognition-Attacks) - about our project
+- [Face Recognition Attacks](#Face-Recognition-Attacks) - About our project
 - [Training and Results](#training-and-results) - our network's training visualizations and results
 - [Hyper-parameters](#hyper-parameters) - what are our training's hyperparameters
 - [Run our model](#run-our-model) - how to run training jobs and inference with our model and how to load checkpoints
-- [Ada-STFT Module](#ada-stft-module) - how to use our STFT module
 
 # Face-Recognition-Attacks
 show how an attribute attack can affect the network accuracy and propose an improvement to a commonly used face recognition model.

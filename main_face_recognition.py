@@ -36,6 +36,9 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_dir', type=str,
                         default='./StarGAN_with_our_changes/CelebA_HQ_facial_identity_dataset',
                         help='data_dir')
+    parser.add_argument('--batch_size', type=int,
+                        default=1,
+                        help='batch_size')
 
     args = parser.parse_args()
     transforms_orig = transforms.Compose([

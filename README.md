@@ -97,6 +97,7 @@ And for choosing the right hyper-parameters to fit the model to defend as well a
 # Run our model
 #### 1. Clone our git repository
     git clone https://github.com/shellyfra/Defend_against_attribute_attacks_in_face_recognition_models.git
+    cd Defend_against_attribute_attacks_in_face_recognition_models/StarGAN_with_our_changes/
 
 #### 2. Download the dataset and pre-trained models using this bash commands:
     bash download.sh celeba-hq-dataset
@@ -127,7 +128,6 @@ NOTICE THAT OUR PRE-TRAINED MODEL WORKS GOOD WITH BLOND ATTRIBUTE TRANSFORMATION
 #### 3.
 The following commands will save generated the attacked images
 
-    cd StarGAN_with_our_changes
     !python main.py --mode sample --num_domains 2 --resume_iter 100000 --w_hpf 1 \
                --checkpoint_dir expr/checkpoints/celeba_hq \
                --result_dir attack_objects\

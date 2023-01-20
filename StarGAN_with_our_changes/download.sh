@@ -15,12 +15,6 @@ if [ $FILE == "pretrained-network-celeba-hq" ]; then
     OUT_FILE=./expr/checkpoints/celeba_hq/100000_nets_ema.ckpt
     wget -N $URL -O $OUT_FILE
 
-elif  [ $FILE == "pretrained-network-afhq" ]; then
-    URL=https://www.dropbox.com/s/etwm810v25h42sn/100000_nets_ema.ckpt?dl=0
-    mkdir -p ./expr/checkpoints/afhq
-    OUT_FILE=./expr/checkpoints/afhq/100000_nets_ema.ckpt
-    wget -N $URL -O $OUT_FILE
-
 elif  [ $FILE == "wing" ]; then
     URL=https://www.dropbox.com/s/tjxpypwpt38926e/wing.ckpt?dl=0
     mkdir -p ./expr/checkpoints/
@@ -36,23 +30,6 @@ elif  [ $FILE == "celeba-hq-dataset" ]; then
     mkdir -p ./CelebA_HQ_facial_identity_dataset
     wget $URL -O $ZIP_FILE
     unzip $ZIP_FILE -d ./CelebA_HQ_facial_identity_dataset
-    rm $ZIP_FILE
-
-elif  [ $FILE == "afhq-dataset" ]; then
-    URL=https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0
-    ZIP_FILE=./data/afhq.zip
-    mkdir -p ./data
-    wget -N $URL -O $ZIP_FILE
-    unzip $ZIP_FILE -d ./data
-    rm $ZIP_FILE
-
-elif  [ $FILE == "afhq-v2-dataset" ]; then
-    #URL=https://www.dropbox.com/s/scckftx13grwmiv/afhq_v2.zip?dl=0
-    URL=https://www.dropbox.com/s/vkzjokiwof5h8w6/afhq_v2.zip?dl=0
-    ZIP_FILE=./data/afhq_v2.zip
-    mkdir -p ./data
-    wget -N $URL -O $ZIP_FILE
-    unzip $ZIP_FILE -d ./data
     rm $ZIP_FILE
 
 elif  [ $FILE == "stargan-pre-trained" ]; then

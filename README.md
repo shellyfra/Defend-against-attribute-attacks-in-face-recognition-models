@@ -16,137 +16,141 @@ Deep Learning course (046211)
 ## Agenda
 - [Face Recognition Attacks](#Face-Recognition-Attacks) - About our project
 - [Training and Results](#training-and-results) - our network's training visualizations and results
+- [Run our model](#run-our-model) - how to load our model and test on different images from celebA-hq subset
 - [Hyper-parameters](#hyper-parameters) - what are our training's hyperparameters
-- [Run our model](#run-our-model) - how to run training jobs and inference with our model and how to load checkpoints
 
 # Face-Recognition-Attacks
-- Face recognition is a domain with many uses in real-world applications – ranging from photo tagging to automated border control (ABC).
-- Today’s models have high accuracy
-- These models could be vulnerable to adversarial attacks
-- An attacker can intentionally design features that would confuse the network and even impersonate to someone else.
-- We tested some countermeasures against these attacks
+Face recognition is a domain with many uses in real-world applications – ranging from photo tagging to automated border control (ABC).
+Today’s models have high accuracy
+These models could be vulnerable to adversarial attacks
+An attacker can intentionally design features that would confuse the network and even impersonate to someone else.
+We tested some counter measures against these attacks on face-net model
 
 ![](images/att_attack_id_108.png)
 
+### FaceNet:
+FaceNet is a deep neural network model used for extracting features 
+from an image of a person’s face that was proposed by Google in 2015. 
+The model takes an image of the person’s face as input and outputs an
+embedding vector which represent the most important features of a face.
 
+We trained our model to fit a subset of CelebA-HQ dataset, that uses 300 identities.
+If you want to add your on images, it's possible by fine-tune (train for short time)
+Our model.
+
+![](images\face_net_omg.png)
+
+
+### Star-Gan-v2
+
+Star GAN is a model that transfers an image that has 
+attributes list A to an image with attribute list B.
+
+The way to use this model is to give it reference and source images (In directories as mentioned below)
+and then the GAN would generate the source img with some of the reference image attributes
+(hair-style, sun-glasses, beard, face accessories etc.)
+
+![](images\StarGan-v2.png)
+
+### Dataset
+Our dataset is celebA-HQ subset : <a href="https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html">CelebA dataset </a>,
+
+### Our adversarial attack:
+
+We created to kind of attacks:
+#### 1.
+Attack by adding augmentation to the tested image - gaussian noise, color jitter etc.
+This attack could be a software attack where the images are augmented automatically before tested in the FR system
+We so that the FaceNet can be fool by this kind of attack, but we can defend it in some manners.
+#### 2.
+Attack by choosing non-blond girls as attack objects, and some blond girls
+as the reference images, and in this way we determine that our attack would be to paint the hair of out objects and see
+if the FR model still succeed to identify them - We so that in most examples, the model fails to recognize correctly!
+
+### Our defence method:
+We used a straight forward method - add augmented and attribute transformed data samples to the train
+set and fine-tune (re-train the last layers for short time)
+As you can see, we succeeded to defend some specific attacks.
 
 # Training and Results
 
-We used Optuna to pick our hyperparameters for .
+We used Optuna to pick our hyper-parameters to fit faceNet model to celebA-HQ dataset
+And for choosing the right hyper-parameters to fit the model to defend as well as possible against the attack
 
-Here are our results:
+### Our results:
+
+#### faceNet predictions BEFORE training - augmentation attack:
+
+![](images\before_aug_train_2.png)
+#### faceNet predictions AFTER training:
+![](images\after_aug_train_2.png)
+
+#### faceNet predictions BEFORE training - attribute attack:
+![](images\att_attack_id_before_train.png)
+#### faceNet predictions AFTER training:
+![](images\att_attack_id_after_train.png)
+
 
 # Run our model
+#### 1. Clone our git repository
+    git clone https://github.com/shellyfra/Defend_against_attribute_attacks_in_face_recognition_models.git
 
-## Dataset
-Our dataset is: <a href="https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification/code">GTZAN dataset </a>,
-Our code uses `torchaudio` dataset to load it. You can set the path to your data directory with the data_dir argument.
+#### 2. Download the dataset and pre-trained models using this bash commands:
+    bash download.sh celeba-hq-dataset
+    bash download.sh pretrained-network-celeba-hq
+    bash download.sh wing 
+    bash download.sh stargan-pre-trained 
+    bash download.sh models-weights 
 
-## Chekpoints
-You should set the ckpt_dir parameter as the father checkpoints directory, and ckpt_file as the file name.
-For example, if you set the following parameters as:
-`ckpt_dir = "checkpoints"`, `test_name = "my_test.pt"`, `ckpt_dir = "best_ckpt.pt"`,
-The full checkpoints file path that will be loaded is: `\checkpoints\my_test\best_ckpt.pt`
+#### 3. Install these dependencies:
+    conda create -n stargan-v2 python=3.6.7
+    conda activate stargan-v2
+    conda install -y pytorch=1.4.0 torchvision=0.5.0 cudatoolkit=10.0 -c pytorch
+    conda install x264=='1!152.20180717' ffmpeg=4.0.2 -c conda-forge
+    pip install opencv-python==4.1.2.30 ffmpeg-python==0.2.0 scikit-image==0.16.2
+    pip install pillow==7.0.0 scipy==1.2.1 tqdm==4.43.0 munch==2.5.0
+    pip install facenet-pytorch
 
-## Training Music Genre Classifier
-To train our classifier network, run `train_env.py`.
-```cmd
-python ./train_env.py --test_name run_basic
-```
-Training job parameters are automatically loaded from the options.json in the project directory.
-Changes to the parameters can be applied by changing the `codes\options.json` or running with command line arguments, for example:
-```cmd
-python ./train_env.py --test_name run_learn_window --learn_window 1
-```
+## Run a test of your on:
+After downloading the pre-trained networks, you can synthesize an attack. 
 
-## Inference Music Genre Classifier
-Run the `test.py` with the `test_name` argument set to the name of the model used for inference.
-Setting the `test_name` argument can be done through `options.json` or through command line:
-```cmd
-python ./test.py --test_name my_test --ckpt_dir checkpoints --ckpt_dir best_ckpt.pt
-```
+#### 1. 
+Select an image as the attacked object from the downloaded dataset (the folder name is the identity of the person) and transfer it to the 
+attack_objects directory under 'StarGAN_with_our_changes/attack_objects'
+#### 2. 
+Select an image as the reference object from the downloaded dataset and transfer it to the 
+attack_reference directory under 'StarGAN_with_our_changes/attack_reference'
+NOTICE THAT OUR PRE-TRAINED MODEL WORKS GOOD WITH BLOND ATTRIBUTE TRANSFORMATION
+#### 3.
+The following commands will save generated the attacked images
+
+    cd StarGAN_with_our_changes
+    !python main.py --mode sample --num_domains 2 --resume_iter 100000 --w_hpf 1 \
+               --checkpoint_dir expr/checkpoints/celeba_hq \
+               --result_dir attack_objects\
+               --src_dir attack_objects \
+               --ref_dir attack_reference
+
+#### 4. 
+Run this following commands to get the prediction of the model:
+
+    cd ../
+    !python main_face_recognition.py --img_path ./StarGAN_with_our_changes/attack_objects/80/13726.jpg \ 
+                --state_path ./StarGAN_with_our_changes/models/CelebA_HQ_Facenet_with_aug_attribute.pth \ 
+                --dataset_dir './StarGAN_with_our_changes/CelebA_HQ_facial_identity_dataset'
 
 # Hyper-parameters
 
 |Parameter | Type | Description |
 |-------|------|---------------|
-|test_name| string | your trial's name|
-|resume| int | 0 if we start a new training run and 1 if we resume old training|
-|ckpt_interval| int | epoch interval to save a new checkpoint |
-|tensorboard_dir| string | path to tensorboard log directory |
-|data_dir| string | path to dataset directory |
-|ckpt_dir| string | path to checkpoint directory |
-|ckpt_file| string | path to ckpt file to be loaded |
-|learn_window| int | 1 to learn stft window coefficients, 0 not to |
-|learn_kernels| int | 1 to learn stft kernels coefficients, 0 not to |
 |batch_size| int | size of batch |
 |num_workers| int | data loader's parameters: number of workers to pre-fetch the data |
 |epoch_num| int | number of total epoches to run |
 |learning_rate| int | initial optimizer's learning rate |
-|split_parts| int | how many parts to split our original audio file to. can be: 1, 3, 4, 6, 12|
-|gamma| int | scheduler's gamma |
 |cpu| int | 0 if we want to try and run on gpu, else if we want to run on cpu |
-|augmentation | int | 0 if we don't want to use augmentation, else if we do |
-|three_widows| int | 0 to use 1 STFT in classifier (greyscale), else for 3 STFT modules in classifier (RGB) |
+|augmentation / attribute domain | method | which kind of attack to choose |
 |optimizer_class| string | optimizer type: "SGD" or "AdamW" |
 
 ## Changing hyper-parameters
-Parameters are automatically loaded from the options.json in the project directory.
-Changes to the parameters can be applied by changing the `options.json`.
-We also  implemented argparse library, so you can load your parameters with your IDE's configure or within th command line.
-Examples are shown in the Run-our-model section.
-
-# Ada-STFT Module
-
-## How to use our module
-```python
-import torch
-from torch import nn
-from models.resnet_dropout import *
-import STFT
-
-class Classifier(nn.Module):
-    def __init__(self, resnet=resnet18, window="hanning", num_classes=10):
-        super(Classifier, self).__init__()
-        self.stft = STFT(window=window)
-        self.resnet = resnet(num_classes=num_classes)
-
-    def forward(self, x):
-        x = self.stft(x)
-        x = self.monochrome2RGB(x)
-        return self.resnet(x)
-
-    @staticmethod
-    def monochrome2RGB(tensor):
-        return tensor.repeat(1, 3, 1, 1)
-```
-
-## STFT Layer Parameters
-|Parameter | Description |
-|-------|---------------------|
-|nfft| window size of STFT calculation|
-|hop_length | STFT hop size, or stride of STFT calculation|
-| window | type of window to initialize the STFT window to, one of the windows implemented in scipy.signal|
-| sample_rate | sampling rate for audio|
-| num_mels | number of mel scale frequencies to use, None for don't use mel frequencies|
-| log_base | base of log to apply  to STFT, None for no log|
-| learn_window | should window be learned (can be set after layer initialization)|
-| learn_kernels | should DFT kernel be learned (can be set after layer initialization)|
-
-
-# Prerequisites
-|Library         | Version |
-|--------------------|----|
-|`Python`|  `3.5.5 (Anaconda)`|
-|`scipy`| `1.7.3`|
-|`tqdm`| `4.62.3`|
-|`librosa`| `0.8.1`|
-|`torch`| `1.10.1`|
-|`torchaudio`| `0.10.1`|
-|`torchaudio-augmentations`| `0.2.3 (https://github.com/Spijkervet/torchaudio-augmentations)`|
-|`tensorboard`| `2.7.0`|
 
 Credits:
-* Music Genre Classifier Project for classifier network architecture https://github.com/omercohen7640/MusicGenreClassifier
-* Animation by <a href="https://medium.com/@gumgumadvertisingblog">GumGum</a>.
-* STFT implemenation https://github.com/diggerdu/pytorch_audio

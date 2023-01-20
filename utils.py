@@ -172,8 +172,12 @@ def imshow(input, title):
 
 def imshow_no_normalization(input, title):
     # torch.Tensor => numpy
+    print('got here0?')
     input = input.numpy().transpose((1, 2, 0))
     # display images
+    print('got here1?')
     plt.imshow(input)
     plt.title(title)
+    print('got here2?')
+
     plt.show()

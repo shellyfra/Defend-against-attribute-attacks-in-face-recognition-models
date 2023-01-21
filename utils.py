@@ -116,13 +116,13 @@ def eval_acc(model, test_dataloader, device, criterion=nn.CrossEntropyLoss()):
 
           _, preds = torch.max(outputs, 1)
           running_loss += loss.item() * inputs.size(0)
-          running_corrects += torch.sum(preds == labels.data)/16
+          running_corrects += torch.sum(preds == labels.data)
           # print(running_corrects)
           # break
 
-      loss = running_loss / len(test_dataloader)
+      loss = running_loss / len(test_dataloader.dataset)
 
-      acc = (running_corrects / len(test_dataloader)) * 100.
+      acc = (running_corrects / len(test_dataloader.dataset)) * 100.
 
   print('Loss: {:.4f} Acc: {:.4f}% '.format(loss, acc))
   return loss, acc

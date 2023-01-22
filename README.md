@@ -153,4 +153,4 @@ Run this following commands to get the prediction of the model:
 |cpu| int | 0 if we want to try and run on gpu, else if we want to run on cpu |
 |optimizer_class| string | optimizer type: "SGD" or "Adam" |
 
-[Link to our YouTube presentation](https://www.youtube.com/watch?v=1oavE_Lg-Xs\)
+![Link to our YouTube presentation](https://www.youtube.com/watch?v=1oavE_Lg-Xs\)

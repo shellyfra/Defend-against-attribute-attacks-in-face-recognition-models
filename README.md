@@ -151,9 +151,6 @@ Run this following commands to get the prediction of the model:
 |epoch_num| int | number of total epoches to run |
 |learning_rate| int | initial optimizer's learning rate |
 |cpu| int | 0 if we want to try and run on gpu, else if we want to run on cpu |
-|augmentation / attribute domain | method | which kind of attack to choose |
-|optimizer_class| string | optimizer type: "SGD" or "AdamW" |
+|optimizer_class| string | optimizer type: "SGD" or "Adam" |
 
-## Changing hyper-parameters
 
-Credits:

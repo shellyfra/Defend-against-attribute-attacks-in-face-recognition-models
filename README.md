@@ -74,7 +74,11 @@ As you can see, we succeeded to defend some specific attacks.
 # Training and Results
 
 We used Optuna to pick our hyper-parameters to fit faceNet model to celebA-HQ dataset
-And for choosing the right hyper-parameters to fit the model to defend as well as possible against the attack
+And for choosing the right hyper-parameters to fit the model to the defence methods.
+
+### Optuna hyper-parameters
+The file responsible for the hyper parameter's choice with optuna is in :
+"code/Optuna_hyperparams_search.ipynb"
 
 ### Our results:
 
@@ -86,6 +90,17 @@ And for choosing the right hyper-parameters to fit the model to defend as well a
 
 ![](images/after_aug_train_2.png)
 
+evaluate on fine-tuned without augmentations model:
+Loss: 1.2103 Acc: 74.3210% 
+
+evaluate on fine-tuned CelebA + fine-tuned on augmented data:
+
+Loss: 0.5867 Acc: 88.6968% 
+
+evaluate on augmented model - training from scratch:
+
+Loss: 0.4516 Acc: 90.5350%
+
 #### faceNet predictions BEFORE training - attribute attack:
 
 ![](images/att_attack_id_before_train.png)
@@ -94,7 +109,26 @@ And for choosing the right hyper-parameters to fit the model to defend as well a
 
 ![](images/att_attack_id_after_train.png)
 
+evaluate on fine-tuned not augmented model:
+
+Loss: 2.8851 Acc: 44.0329% 
+
+evaluate on fine-tuned augmented model:
+
+Loss: 3.0072 Acc: 41.7833% 
+
+evaluate on fine-tuned attribute model:
+
+Loss: 1.0710 Acc: 77.5034%
 # Run our model
+You can run directly the colab notebooks (Run the code as is by order - no further installations required):
+```console
+code/Attribute_attack.ipynb 
+OR
+code/Augmentation_attack.ipynb
+```
+#### OR
+
 #### 1. Clone our git repository
     git clone https://github.com/shellyfra/Defend_against_attribute_attacks_in_face_recognition_models.git
     cd Defend_against_attribute_attacks_in_face_recognition_models/code/StarGAN_with_our_changes/
@@ -153,4 +187,5 @@ Run this following commands to get the prediction of the model:
 |cpu| int | 0 if we want to try and run on gpu, else if we want to run on cpu |
 |optimizer_class| string | optimizer type: "SGD" or "Adam" |
 
+## YouTube Link:
 https://www.youtube.com/watch?v=1oavE_Lg-Xs\

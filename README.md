@@ -188,4 +188,4 @@ Run this following commands to get the prediction of the model:
 |optimizer_class| string | optimizer type: "SGD" or "Adam" |
 
 ## YouTube Link:
-https://www.youtube.com/watch?v=1oavE_Lg-Xs\
+https://www.youtube.com/watch?v=vIdjiqZTf78
